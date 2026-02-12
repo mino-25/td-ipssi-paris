@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Liste des categories{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1>Liste des catégories</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Content</th>
+            </tr>
+        </thead>
+        {% for category in categories %}
+            <tbody>
+                <tr>
+                <th scope="row">{{ category.id }}</th>
+                <td>{{ category.name }}</td>
+                <td>{{ category.content }}</td>
+                </tr>
+            </tbody>
+        {% else %}
+            <p> Aucune categorie disponible </p>
+        {% endfor %}
+    </table>
+
+
+
+
+</div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

@@ -1,3 +1,129 @@
+
 body {
-    background-color: skyblue;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #222;
 }
+
+.example-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 2.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2d6cdf;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+table.table {
+    background: #f8fafc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+table.table th, table.table td {
+    vertical-align: middle;
+    padding: 1rem 1.2rem;
+}
+
+table.table thead th {
+    background: #2d6cdf;
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+table.table tbody tr {
+    transition: background 0.2s;
+}
+
+table.table tbody tr:hover {
+    background: #e3f0ff;
+}
+
+table.table td {
+    color: #333;
+}
+
+.no-articles {
+    color: #b71c1c;
+    font-weight: 600;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+}
+
+/* Style des formulaires */
+.example-wrapper form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.example-wrapper label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2d6cdf;
+    letter-spacing: 0.5px;
+}
+
+.example-wrapper input[type="text"],
+.example-wrapper input[type="email"],
+.example-wrapper input[type="password"],
+.example-wrapper input[type="number"],
+.example-wrapper textarea,
+.example-wrapper select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid #b3c6e0;
+    border-radius: 8px;
+    background: #f8fafc;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(44,62,80,0.04);
+}
+
+.example-wrapper input:focus,
+.example-wrapper textarea:focus,
+.example-wrapper select:focus {
+    border-color: #2d6cdf;
+    outline: none;
+    box-shadow: 0 0 0 2px #a1c4fd55;
+}
+
+.example-wrapper .form-error-message {
+    color: #b71c1c;
+    font-size: 0.95rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.example-wrapper .btn-primary {
+    background: linear-gradient(90deg,#2d6cdf 60%,#6fb1fc 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    padding: 0.7rem 2.2rem;
+    font-size: 1.1rem;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.example-wrapper .btn-primary:hover {
+    background: linear-gradient(90deg,#1a4fa0 60%,#4e8edb 100%);
+    box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+}
+

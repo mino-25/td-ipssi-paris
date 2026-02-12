@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+    <h1>Create new Comment</h1>
+
+
+    {# On passe l'id de l'article dans l'URL du formulaire #}
+    {{ form_start(form, {'action': path(app.request.attributes.get('_route'), {'article': article.id}) }) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_comment_index') }}">back to list</a>
+{% endblock %}

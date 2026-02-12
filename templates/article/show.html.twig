@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article.content }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_article_index') }}">back to list</a>
+    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+
+    {# Formulaire d'ajout de commentaire, totalement indépendant #}
+    {% if app.user %}
+        <h2>Ajouter un commentaire</h2>
+        <div class="comment-form-block">
+            {{ form_start(form, {'action': path('app_article_show', {'id': article.id}) }) }}
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+                <button class="btn">Commenter</button>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+        <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter cet article.</p>
+    {% endif %}
+
+    <hr>
+    {# Formulaire de suppression de l'article, totalement séparé et en dehors de tout autre form #}
+    <div class="delete-form-block">
+        {{ include('article/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

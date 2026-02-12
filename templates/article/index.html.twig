@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <h1>Liste des articles</h1>
+
+    <style>
+    .article-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
+        padding: 2rem;
+        transition: box-shadow 0.2s;
+    }
+    .article-card:hover {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .article-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    .article-content {
+        margin-bottom: 1rem;
+        color: #444;
+    }
+    .article-actions {
+        margin-bottom: 1rem;
+    }
+    .comment-list {
+        margin-top: 1rem;
+        padding-left: 1rem;
+        border-left: 2px solid #eee;
+    }
+    .comment-item {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .comment-author {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    .comment-date {
+        color: #888;
+        font-size: 0.9em;
+        margin-left: 0.5em;
+    }
+    </style>
+
+    {% for article in articles %}
+        <div class="article-card">
+            <div class="article-title">{{ article.title }}</div>
+            <div class="article-content">{{ article.content|length > 200 ? article.content[:200] ~ '...' : article.content }}</div>
+            <div class="article-actions">
+                {% if app.user %}
+                    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-sm btn-outline-primary">Voir</a>
+                {% endif %}
+                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                {% endif %}
+                {% if not app.user %}
+                    <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">Connectez-vous pour plus d'informations</a>
+                {% endif %}
+            </div>
+            <div class="comment-list">
+                <strong>Commentaires :</strong>
+                {% if article.comments|length > 0 %}
+                    {% for comment in article.comments %}
+                        <div class="comment-item">
+                            <span class="comment-author">{{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}</span>
+                            <span class="comment-date">le {{ comment.createdAt|date('d/m/Y H:i') }}</span><br>
+                            {{ comment.content }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <span class="text-muted">Aucun commentaire pour cet article.</span>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <p>Aucun article trouvé.</p>
+    {% endfor %}
+
+    {% if app.user %}
+        <a href="{{ path('app_article_new') }}" class="btn btn-success">Créer un nouvel article</a>
+    {% endif %}
+{% endblock %}

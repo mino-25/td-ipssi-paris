@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Liste des categories{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Nouvelle catégorie</h1>
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_widget(form) }}
+        </div>
+        <button class="btn btn-primary px-4 py-2" style="font-weight:600; border-radius:8px; box-shadow:0 2px 8px rgba(44,62,80,0.07); background: linear-gradient(90deg,#2d6cdf 60%,#6fb1fc 100%); border:none;">{{ button_label|default('Sauvegarder') }}</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
