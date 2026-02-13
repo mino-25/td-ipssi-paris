@@ -1,0 +1,43 @@
+<footer class="site-footer mt-5">
+    <div class="container">
+        <div class="row gy-4">
+
+            <div class="col-md-4 text-center text-md-start">
+                <h5 class="footer-title">Blog TD IPSSI</h5>
+                <p class="footer-text">
+                    Plateforme de partage d’articles, de connaissances et de discussions.
+                </p>
+            </div>
+
+            <div class="col-md-4 text-center">
+                <h6 class="footer-subtitle">Navigation</h6>
+                <ul class="footer-links">
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/article">Articles</a></li>
+                    <li><a href="/category">Catégories</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 text-center text-md-end">
+                <h6 class="footer-subtitle">Compte</h6>
+
+                {% if app.user %}
+                    <p class="footer-text">
+                        Connecté en tant que <strong>{{ app.user.firstName }}</strong>
+                    </p>
+                    <a href="/logout" class="btn btn-sm btn-outline-danger">Déconnexion</a>
+                {% else %}
+                    <a href="/login" class="btn btn-sm btn-outline-primary me-2">Connexion</a>
+                    <a href="/register" class="btn btn-sm btn-outline-secondary">Inscription</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="text-center footer-bottom">
+            © {{ "now"|date("Y") }} — Blog TD IPSSI · Tous droits réservés
+        </div>
+    </div>
+</footer>

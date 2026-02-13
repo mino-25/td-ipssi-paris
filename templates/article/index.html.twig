@@ -1,90 +1,115 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-    <h1>List of articles</h1>
+<style>
+    /* Titre principal */
+    .articles-title {
+        color: #2d6cdf;
+        font-weight: 700;
+    }
 
-    <style>
-    .article-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        margin-bottom: 2rem;
-        padding: 2rem;
-        transition: box-shadow 0.2s;
+    /* Cartes articles */
+    .card-custom {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
     }
-    .article-card:hover {
-        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-    .article-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-    }
-    .article-content {
-        margin-bottom: 1rem;
-        color: #444;
-    }
-    .article-actions {
-        margin-bottom: 1rem;
-    }
-    .comment-list {
-        margin-top: 1rem;
-        padding-left: 1rem;
-        border-left: 2px solid #eee;
-    }
-    .comment-item {
-        margin-bottom: 0.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    .comment-author {
-        font-weight: bold;
-        color: #2c3e50;
-    }
-    .comment-date {
-        color: #888;
-        font-size: 0.9em;
-        margin-left: 0.5em;
-    }
-    </style>
 
-    {% for article in articles %}
-        <div class="article-card">
-            <div class="article-title">{{ article.title }}</div>
-            <div class="article-content">{{ article.content|length > 20 ? article.content[:20] ~ '...' : article.content }}</div>
-            <div class="article-actions">
-                {% if app.user %}
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-sm btn-outline-primary">Show</a>
-                {% endif %}
-                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                {% endif %}
-                {% if not app.user %}
-                    <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">Connect you for more information</a>
-                {% endif %}
-            </div>
-            <div class="comment-list">
-                <strong>Comments :</strong>
-                {% if article.comments|length > 0 %}
-                    {% for comment in article.comments %}
-                        <div class="comment-item">
-                            <span class="comment-author">{{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}</span>
-                            <span class="comment-date"> {{ comment.createdAt|date('d/m/Y H:i') }}</span><br>
-                            {{ comment.content }}
+    .card-custom:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Images articles */
+    .card-custom img.card-img-top {
+        height: 220px;
+        object-fit: cover;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+    }
+
+    /* Boutons */
+    .card-custom .btn {
+        min-width: 80px;
+    }
+
+    /* Commentaires */
+    .card-comment {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .card-comment .fw-bold {
+        color: #2d6cdf;
+    }
+
+    .card-comment + .card-comment {
+        margin-top: 0.5rem;
+    }
+
+    /* Texte tronqué */
+    .card-text.truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 3 lignes max */
+        -webkit-box-orient: vertical;
+    }
+</style>
+
+<div class="container my-5">
+    <h1 class="text-center mb-5 articles-title">Liste des articles</h1>
+    <div class="row g-4">
+        {% for article in articles %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card card-custom h-100">
+                    {% if article.pictureUrl %}
+                        <img src="{{ article.pictureUrl }}" class="card-img-top" alt="{{ article.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text text-muted truncate">{{ article.content }}</p>
+                        <p class="card-text text-secondary">{{ article.category ? article.category.name : 'Sans catégorie' }}</p>
+                        <div class="mt-auto d-flex justify-content-center gap-2 flex-wrap">
+                            {% if app.user %}
+                                <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-sm btn-outline-primary">Voir</a>
+                            {% endif %}
+                            {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                            {% endif %}
+                            {% if not app.user %}
+                                <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">Connectez-vous pour plus d'info</a>
+                            {% endif %}
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <span class="text-muted">No comment for this article.</span>
-                {% endif %}
-            </div>
-        </div>
-    {% else %}
-        <p>Aucun article trouvé.</p>
-    {% endfor %}
 
+                        {% if article.comments|length > 0 %}
+                            <div class="mt-3">
+                                {% for comment in article.comments %}
+                                    <div class="card-comment">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-bold">{{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}</span>
+                                            <span class="text-muted small">{{ comment.createdAt|date('d/m/Y H:i') }}</span>
+                                        </div>
+                                        <div>{{ comment.content }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center text-danger fw-bold mt-4">Aucun article trouvé.</p>
+        {% endfor %}
+    </div>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_article_new') }}" class="btn btn-success">New Post</a>
+        <div class="text-center mt-5">
+            <a href="{{ path('app_article_new') }}" class="btn btn-success btn-lg">Créer un nouvel article</a>
+        </div>
     {% endif %}
+</div>
 {% endblock %}

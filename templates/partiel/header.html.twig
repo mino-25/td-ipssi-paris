@@ -1,33 +1,36 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">My Blog</a>
+            <a class="navbar-brand" href="/">Blog TD IPSSI</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/article">Posts</a>
+                        <a class="nav-link" href="/article">Articles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/category">Categories</a>
                     </li>
                     {%if app.user and 'ROLE_ADMIN' in app.user.roles %} 
                         <li class="nav-item"> 
-                            <a class="nav-link" href="/user">Users</a> 
+                            <a class="nav-link" href="/user">Utilisateurs</a> 
                         </li>
                     {% endif %}
                     {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <p class="nav-link">{{ app.user.firstName }} </p>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Deconnexion</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">Login </a>
+                            <a class="nav-link" href="/login">Connexion</a>
                         </li>
                         <li class="nav-item"> 
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link" href="/register">Inscription</a>
                         </li>
 
                     {% endif %}

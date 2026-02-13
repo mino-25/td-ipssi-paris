@@ -1,38 +1,83 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %} {{ parent() }} | Liste des catégories{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1 class="mb-4">List of categories</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <th scope="row">{{ category.id }}</th>
-                <td>{{ category.name }}</td>
-                <td>{{ category.content }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3" class="text-center text-danger">No category available</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_category_new') }}" class="btn btn-success mt-3 px-4 py-2">Create a new category</a>
-    {% endif %}
-</div>
-{% endblock %}
-{% block footer %}
+<style>
+    .category-wrapper {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 0.6rem;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
 
+    .category-title {
+        font-weight: 700;
+        color: #2d6cdf;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .category-table thead {
+        background: linear-gradient(135deg, #2d6cdf, #1e40af);
+        color: white;
+    }
+
+    .category-table th, 
+    .category-table td {
+        vertical-align: middle;
+    }
+
+    .category-table tbody tr:hover {
+        background-color: #f1f5ff;
+    }
+
+    .category-btn {
+        display: inline-block;
+        margin-top: 1.5rem;
+    }
+</style>
+
+<div class="category-wrapper">
+
+    <h1 class="category-title">Liste des catégories</h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover category-table">
+            <thead>
+                <tr>
+                    <th width="70">#</th>
+                    <th width="250">Nom</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <th>{{ category.id }}</th>
+                    <td class="fw-semibold">{{ category.name }}</td>
+                    <td>{{ category.content }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center text-danger fw-bold">
+                        Aucune catégorie disponible
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="text-center">
+            <a href="{{ path('app_category_new') }}" class="btn btn-success px-4 py-2 category-btn">
+                ➕ Créer une nouvelle catégorie
+            </a>
+        </div>
+    {% endif %}
+
+</div>
 {% endblock %}

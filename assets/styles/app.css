@@ -1,204 +1,164 @@
+/*
 
 body {
-    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    background: #f5f5f5;
     min-height: 100vh;
     font-family: 'Segoe UI', Arial, sans-serif;
-    color: #222;
+    color: #333;
+}
+
+h1, h2, h3, h4 {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+p, li, span {
+    color: #4a4a4a;
+    line-height: 1.6;
 }
 
 .example-wrapper {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    padding: 2rem;
     margin: 2rem auto;
     max-width: 900px;
 }
 
-h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #2d6cdf;
-    margin-bottom: 2rem;
-    letter-spacing: 1px;
-}
 
-table.table {
-    background: #f8fafc;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
-}
-
-table.table th, table.table td {
-    vertical-align: middle;
-    padding: 1rem 1.2rem;
-}
-
-table.table thead th {
-    background: #2d6cdf;
-    color: #fff;
+.card-custom {
+    border-radius: 12px;
     border: none;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
 }
 
-table.table tbody tr {
-    transition: background 0.2s;
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
-table.table tbody tr:hover {
-    background: #e3f0ff;
-}
-
-table.table td {
-    color: #333;
-}
-
-.no-articles {
-    color: #b71c1c;
-    font-weight: 600;
-    text-align: center;
-    margin: 2rem 0;
-    font-size: 1.2rem;
-}
-
-/* Style des formulaires */
-.example-wrapper form {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.example-wrapper label {
-    display: block;
-    font-weight: 600;
+.card-custom .card-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    color: #2d6cdf;
-    letter-spacing: 0.5px;
 }
 
-.example-wrapper input[type="text"],
-.example-wrapper input[type="email"],
-.example-wrapper input[type="password"],
-.example-wrapper input[type="number"],
-.example-wrapper textarea,
-.example-wrapper select {
-    width: 100%;
-    padding: 0.7rem 1rem;
-    border: 1.5px solid #b3c6e0;
-    border-radius: 8px;
-    background: #f8fafc;
+.card-custom .card-text {
     font-size: 1rem;
-    margin-bottom: 1.2rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 1px 3px rgba(44,62,80,0.04);
+    color: #555;
 }
 
-.example-wrapper input:focus,
-.example-wrapper textarea:focus,
-.example-wrapper select:focus {
-    border-color: #2d6cdf;
-    outline: none;
-    box-shadow: 0 0 0 2px #a1c4fd55;
+
+.btn-custom-primary {
+    background-color: #2c3e50;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.6rem 1.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
-.example-wrapper .form-error-message {
-    color: #b71c1c;
-    font-size: 0.95rem;
-    margin-top: -1rem;
-    margin-bottom: 1rem;
+.btn-custom-primary:hover {
+    background-color: #1a242f;
+    color: #fff;
+}
+
+.btn-custom-outline {
+    border: 1px solid #2c3e50;
+    color: #2c3e50;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
     font-weight: 500;
 }
 
-.example-wrapper .btn-primary {
-    background: linear-gradient(90deg,#2d6cdf 60%,#6fb1fc 100%);
-    border: none;
+.btn-custom-outline:hover {
+    background-color: #2c3e50;
     color: #fff;
-    font-weight: 600;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(44,62,80,0.07);
-    padding: 0.7rem 2.2rem;
-    font-size: 1.1rem;
-    transition: background 0.2s, box-shadow 0.2s;
 }
 
-.example-wrapper .btn-primary:hover {
-    background: linear-gradient(90deg,#1a4fa0 60%,#4e8edb 100%);
-    box-shadow: 0 4px 16px rgba(44,62,80,0.13);
-}
 
-/* ========== EXTENSION UI GLOBALE ========== */
-/* Ne remplace rien : complète ton CSS existant */
-
-.card {
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-}
-
-.card-title {
-    color: #2d6cdf;
-    font-weight: 700;
-}
-
-.btn {
+.table-custom {
+    background: #fff;
     border-radius: 10px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    transition: all 0.2s ease;
-}
-
-.btn-outline-primary {
-    border-color: #2d6cdf;
-    color: #2d6cdf;
-}
-
-.btn-outline-primary:hover {
-    background: #2d6cdf;
-    color: #fff;
-}
-
-.btn-outline-secondary:hover {
-    background: #6c757d;
-    color: #fff;
-}
-
-/* Champs de formulaire partout */
-input,
-textarea,
-select {
-    border-radius: 10px !important;
-    border: 1.5px solid #b3c6e0 !important;
-    padding: 0.7rem 1rem !important;
-    font-size: 1rem;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #2d6cdf !important;
-    box-shadow: 0 0 0 2px #a1c4fd55 !important;
-}
-
-/* Blocs */
-.alert {
-    border-radius: 14px;
-    font-weight: 500;
-}
-
-.table {
-    border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-/* Micro animations premium */
-.card,
-.btn,
-a {
-    transition: all 0.2s ease;
+.table-custom th {
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: 600;
 }
 
-.card:hover {
-    transform: translateY(-2px);
+.table-custom td {
+    color: #444;
 }
 
+
+.form-custom input,
+.form-custom textarea,
+.form-custom select {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    background: #fafafa;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-custom input:focus,
+.form-custom textarea:focus,
+.form-custom select:focus {
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 2px rgba(44,62,80,0.15);
+    outline: none;
+}
+
+
+.comment-item {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    border-left: 3px solid #2c3e50;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: #888;
+    margin-left: 0.5rem;
+}
+
+
+footer {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #a0b4c0;
+}
+
+
+@media (max-width: 768px) {
+    .card-custom img {
+        height: 180px;
+        object-fit: cover;
+    }
+}

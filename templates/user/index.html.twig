@@ -1,36 +1,90 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1 class="mb-4">List of users</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-primary">Show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5" class="text-center text-danger">No user found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<style>
+    .user-wrapper {
+        max-width: 1100px;
+        margin: 2rem auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 0.6rem;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    .user-title {
+        text-align: center;
+        font-weight: 700;
+        color: #2d6cdf;
+        margin-bottom: 2rem;
+    }
+
+    .user-table thead {
+        background: linear-gradient(135deg, #2d6cdf, #1e40af);
+        color: white;
+    }
+
+    .user-table th,
+    .user-table td {
+        vertical-align: middle;
+    }
+
+    .user-table tbody tr:hover {
+        background-color: #f1f5ff;
+    }
+
+    .badge-role {
+        background: #e0ecff;
+        color: #1e40af;
+        font-weight: 600;
+        padding: 0.35rem 0.6rem;
+        border-radius: 0.4rem;
+        margin: 0 0.2rem;
+        display: inline-block;
+    }
+</style>
+
+<div class="user-wrapper">
+
+    <h1 class="user-title">Liste des utilisateurs</h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover user-table">
+            <thead>
+                <tr>
+                    <th width="70">ID</th>
+                    <th>Email</th>
+                    <th width="260">Rôles</th>
+                    <th width="140" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td class="fw-semibold">{{ user.email }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            <span class="badge-role">{{ role|replace({'ROLE_':''}) }}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-sm btn-outline-primary">
+                            Voir
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-danger fw-bold">
+                        Aucun utilisateur trouvé
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 </div>
 {% endblock %}

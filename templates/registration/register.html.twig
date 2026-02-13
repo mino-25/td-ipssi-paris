@@ -1,21 +1,37 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-<div class="example-wrapper" style="max-width:500px; margin:0 auto;">
-    <h1 class="mb-4 text-center">Register</h1>
+<div class="example-wrapper" style="max-width:400px; margin:2rem auto;">
+    <h1 class="mb-4 text-center">Inscription</h1>
+
     {{ form_errors(registrationForm) }}
+
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+        {# Email #}
+        <label for="{{ registrationForm.email.vars.id }}" class="mb-2">Email</label>
+        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control mb-3', 'autocomplete': 'email'}}) }}
+
+        {# Password #}
+        <label for="{{ registrationForm.plainPassword.vars.id }}" class="mb-2">Mot de passe</label>
+        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-3', 'autocomplete': 'new-password'}}) }}
+
+        {# First Name #}
+        <label for="{{ registrationForm.firstName.vars.id }}" class="mb-2">Prénom</label>
+        {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control mb-3'}}) }}
+
+        {# Last Name #}
+        <label for="{{ registrationForm.lastName.vars.id }}" class="mb-2">Nom</label>
+        {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control mb-3'}}) }}
+
+        {# Agree Terms #}
+        <div class="form-check mb-3">
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+            <label for="{{ registrationForm.agreeTerms.vars.id }}" class="form-check-label">Accepter les conditions</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-3">S'inscrire</button>
     {{ form_end(registrationForm) }}
 </div>
 {% endblock %}

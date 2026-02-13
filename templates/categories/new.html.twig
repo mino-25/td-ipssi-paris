@@ -1,19 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} | Liste des categories{% endblock %}
+{% block title %} {{ parent() }} | Nouvelle catégorie{% endblock %}
 
 {% block body %}
+<style>
+    .category-form-wrapper {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 0.6rem;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
 
-<div class="example-wrapper">
-    <h1>New Category</h1>
+    .category-form-title {
+        text-align: center;
+        font-weight: 700;
+        color: #2d6cdf;
+        margin-bottom: 2rem;
+    }
+
+    .category-form-wrapper label {
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+    }
+
+    .category-form-wrapper .form-control {
+        border-radius: 0.4rem;
+        padding: 0.6rem 0.75rem;
+    }
+</style>
+
+<div class="category-form-wrapper">
+
+    <h1 class="category-form-title">Créer une catégorie</h1>
+
     {{ form_start(form) }}
-        <div class="mb-3">
-            {{ form_widget(form) }}
-        </div>
-        <button class="btn btn-primary px-4 py-2" style="font-weight:600; border-radius:8px; box-shadow:0 2px 8px rgba(44,62,80,0.07); background: linear-gradient(90deg,#2d6cdf 60%,#6fb1fc 100%); border:none;">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
-</div>
-{% endblock %}
-{% block footer %}
 
+        {{ form_errors(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.name, 'Nom') }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.name) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.content, 'Description') }}
+            {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+            {{ form_errors(form.content) }}
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-primary px-4 py-2">
+                {{ button_label|default('Sauvegarder') }}
+            </button>
+        </div>
+
+    {{ form_end(form) }}
+
+</div>
 {% endblock %}

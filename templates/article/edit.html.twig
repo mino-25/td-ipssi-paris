@@ -1,13 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Article{% endblock %}
+{% block title %}Modifier un article{% endblock %}
 
 {% block body %}
-    <h1>Edit Article</h1>
+<style>
+    .article-form-wrapper {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 0.6rem;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
 
-    {{ include('article/_form.html.twig', {'button_label': 'Update'}) }}
+    .article-form-title {
+        text-align: center;
+        font-weight: 700;
+        color: #2d6cdf;
+        margin-bottom: 2rem;
+    }
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
+    .article-form-wrapper label {
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+    }
 
-    {{ include('article/_delete_form.html.twig') }}
+    .article-form-wrapper .form-control {
+        border-radius: 0.4rem;
+        padding: 0.6rem 0.75rem;
+    }
+
+    .article-form-wrapper .btn {
+        padding: 0.6rem 1.5rem;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+        gap: 1rem;
+    }
+</style>
+
+<div class="article-form-wrapper">
+
+    <h1 class="article-form-title">Modifier l'article</h1>
+
+    {{ include('article/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <div class="form-actions">
+        <a href="{{ path('app_article_index') }}" class="btn btn-outline-secondary">
+            ← Retour à la liste
+        </a>
+
+        {{ include('article/_delete_form.html.twig') }}
+    </div>
+
+</div>
 {% endblock %}

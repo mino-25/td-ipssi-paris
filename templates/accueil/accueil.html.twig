@@ -1,9 +1,35 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Accueil{% endblock %}
+
 {% block body %}
-<div class="example-wrapper text-center py-5">
-	<h1 class="mb-4" style="font-size:2.5rem; color:#2d6cdf;">Welcome to the Blog</h1>
-	<p class="mb-4" style="font-size:1.2rem; color:#555;">Discover our latest articles and news.</p>
-	<a href="{{ path('app_article_index') }}" class="btn btn-primary btn-lg px-5">View available articles</a>
-</div>
+<section class="hero bg-light py-5 text-center">
+    <div class="container">
+        <h1 class="display-4">Bienvenue sur le Blog TD IPSSI</h1>
+        <p class="lead">Découvrez nos derniers articles et actualités.</p>
+        <a href="{{ path('app_article_index') }}" class="btn btn-primary btn-lg">Voir les articles disponibles</a>
+    </div>
+</section>
+
+<section class="features py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <i class="bi bi-book"></i>
+                <h3>Articles récents</h3>
+                <p>Restez informé des dernières publications.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-people"></i>
+                <h3>Communauté</h3>
+                <p>Participez aux discussions et échanges.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-lightning"></i>
+                <h3>Actualités</h3>
+                <p>Toutes les nouveautés du blog et du domaine.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

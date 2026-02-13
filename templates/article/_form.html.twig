@@ -1,4 +1,35 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_errors(form) }}
+
+    <div class="mb-3">
+        {{ form_label(form.title, 'Titre') }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.content, 'Contenu') }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 6}}) }}
+        {{ form_errors(form.content) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.pictureUrl, 'Image (URL)') }}
+        {{ form_widget(form.pictureUrl, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.pictureUrl) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.category, 'Catégorie') }}
+        {{ form_widget(form.category, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.category) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary px-4">
+            {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+
 {{ form_end(form) }}

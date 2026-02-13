@@ -3,58 +3,114 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+<style>
+    /* Image centrée et responsive */
+    .article-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content}}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    /* Contenu article */
+    .article-content {
+        line-height: 1.7;
+        font-size: 1.05rem;
+        color: #374151;
+    }
 
-    <a href="{{ path('app_article_index') }}">back to list</a>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+    /* Commentaire */
+    .comment-card {
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        padding: 1rem;
+    }
+
+    .comment-card + .comment-card {
+        margin-top: 0.5rem;
+    }
+
+    /* Formulaire de commentaire */
+    .comment-form .form-control {
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container my-5">
+
+    {% if article.pictureUrl %}
+        <img src="{{ article.pictureUrl }}" class="article-img mb-4" alt="{{ article.title }}">
     {% endif %}
 
+    <div class="text-center mb-4">
+        <h1 class="fw-bold mb-2" style="color:#2d6cdf;">{{ article.title }}</h1>
+        <div class="text-muted small">
+            Publié le {{ article.createdAt|date('d/m/Y à H:i') }}
+            {% if article.updatedAt %}
+                · Modifié le {{ article.updatedAt|date('d/m/Y à H:i') }}
+            {% endif %}
+        </div>
+    </div>
 
+    <div class="article-content mb-5">
+        {{ article.content|nl2br }}
+    </div>
+
+    <div class="text-center mb-5 d-flex justify-content-center gap-2 flex-wrap">
+        <a href="{{ path('app_article_index') }}" class="btn btn-outline-secondary">← Retour aux articles</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-outline-primary">✏ Modifier</a>
+        {% endif %}
+    </div>
+
+    {# Formulaire de commentaire #}
     {% if app.user %}
-        <h2>Add a comment</h2>
-        <div class="comment-form-block">
-            {{ form_start(form, {'action': path('app_article_show', {'id': article.id}) }) }}
+        <div class="card shadow-sm p-4 mb-5 comment-form">
+            <h3 class="text-center mb-3">Ajouter un commentaire</h3>
+            {{ form_start(form, {'action': path('app_article_show', {'id': article.id})}) }}
+
                 {{ form_errors(form) }}
-                {{ form_widget(form) }}
-                <button class="btn">Comment</button>
+
+                <div class="mb-3">
+                    {{ form_label(form.content, 'Votre commentaire') }}
+                    {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary w-50">Publier</button>
+                </div>
+
             {{ form_end(form) }}
         </div>
     {% else %}
-        <p><a href="{{ path('app_login') }}">Connect</a> to comment on this article.</p>
+        <div class="alert alert-info text-center">
+            <a href="{{ path('app_login') }}" class="fw-bold">Connectez-vous</a> pour commenter cet article.
+        </div>
     {% endif %}
 
-    <hr>
-
+    {# Commentaires #}
+    {% if article.comments|length > 0 %}
+        <div class="mb-5">
+            <h4 class="text-center mb-4" style="color:#2d6cdf;">Commentaires</h4>
+            {% for comment in article.comments %}
+                <div class="comment-card">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="fw-bold text-primary">{{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}</span>
+                        <span class="text-muted small">{{ comment.createdAt|date('d/m/Y H:i') }}</span>
+                    </div>
+                    <div>{{ comment.content }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <div class="delete-form-block">
+        <div class="text-center mt-4">
             {{ include('article/_delete_form.html.twig') }}
         </div>
     {% endif %}
+</div>
 {% endblock %}
