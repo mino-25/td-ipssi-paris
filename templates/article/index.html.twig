@@ -3,7 +3,7 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Liste des articles</h1>
+    <h1>List of articles</h1>
 
     <style>
     .article-card {
@@ -53,30 +53,30 @@
     {% for article in articles %}
         <div class="article-card">
             <div class="article-title">{{ article.title }}</div>
-            <div class="article-content">{{ article.content|length > 200 ? article.content[:200] ~ '...' : article.content }}</div>
+            <div class="article-content">{{ article.content|length > 20 ? article.content[:20] ~ '...' : article.content }}</div>
             <div class="article-actions">
                 {% if app.user %}
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-sm btn-outline-primary">Voir</a>
+                    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-sm btn-outline-primary">Show</a>
                 {% endif %}
                 {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                 {% endif %}
                 {% if not app.user %}
-                    <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">Connectez-vous pour plus d'informations</a>
+                    <a href="{{ path('app_register') }}" class="btn btn-sm btn-outline-info">Connect you for more information</a>
                 {% endif %}
             </div>
             <div class="comment-list">
-                <strong>Commentaires :</strong>
+                <strong>Comments :</strong>
                 {% if article.comments|length > 0 %}
                     {% for comment in article.comments %}
                         <div class="comment-item">
                             <span class="comment-author">{{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}</span>
-                            <span class="comment-date">le {{ comment.createdAt|date('d/m/Y H:i') }}</span><br>
+                            <span class="comment-date"> {{ comment.createdAt|date('d/m/Y H:i') }}</span><br>
                             {{ comment.content }}
                         </div>
                     {% endfor %}
                 {% else %}
-                    <span class="text-muted">Aucun commentaire pour cet article.</span>
+                    <span class="text-muted">No comment for this article.</span>
                 {% endif %}
             </div>
         </div>
@@ -84,7 +84,7 @@
         <p>Aucun article trouvé.</p>
     {% endfor %}
 
-    {% if app.user %}
-        <a href="{{ path('app_article_new') }}" class="btn btn-success">Créer un nouvel article</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_article_new') }}" class="btn btn-success">New Post</a>
     {% endif %}
 {% endblock %}

@@ -25,6 +25,8 @@ final class CategorieController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
+
     #[Route('/category/new', name: 'app_category_new')]
     public function new(
         Request $request,

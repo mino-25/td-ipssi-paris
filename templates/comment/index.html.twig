@@ -1,17 +1,18 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Comment index{% endblock %}
 
 {% block body %}
-    <h1>Comment index</h1>
-
-    <table class="table">
+<div class="example-wrapper">
+    <h1 class="mb-4">Liste des commentaires</h1>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
+                <th>Contenu</th>
+                <th>Date de création</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +22,17 @@
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_comment_show', {'id': comment.id}) }}">show</a>
-                    <a href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
+                    <a href="{{ path('app_comment_show', {'id': comment.id}) }}" class="btn btn-sm btn-primary">Afficher</a>
+                    <a href="{{ path('app_comment_edit', {'id': comment.id}) }}" class="btn btn-sm btn-warning ms-2">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4" class="text-center text-danger">Aucun commentaire trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_comment_new') }}">Create new</a>
+    <a href="{{ path('app_comment_new') }}" class="btn btn-success mt-3 px-4 py-2">Créer un nouveau commentaire</a>
+</div>
 {% endblock %}

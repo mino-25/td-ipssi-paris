@@ -127,3 +127,78 @@ table.table td {
     box-shadow: 0 4px 16px rgba(44,62,80,0.13);
 }
 
+/* ========== EXTENSION UI GLOBALE ========== */
+/* Ne remplace rien : complète ton CSS existant */
+
+.card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.card-title {
+    color: #2d6cdf;
+    font-weight: 700;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-primary {
+    border-color: #2d6cdf;
+    color: #2d6cdf;
+}
+
+.btn-outline-primary:hover {
+    background: #2d6cdf;
+    color: #fff;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: #fff;
+}
+
+/* Champs de formulaire partout */
+input,
+textarea,
+select {
+    border-radius: 10px !important;
+    border: 1.5px solid #b3c6e0 !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #2d6cdf !important;
+    box-shadow: 0 0 0 2px #a1c4fd55 !important;
+}
+
+/* Blocs */
+.alert {
+    border-radius: 14px;
+    font-weight: 500;
+}
+
+.table {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* Micro animations premium */
+.card,
+.btn,
+a {
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+

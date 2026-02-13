@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable{% endblock %}
+
+{% block body %}
+    <div class="text-center mt-5">
+        <h1 class="display-4">404</h1>
+        <p class="lead">Oups... cette page n'existe pas 😕</p>
+
+        <a href="{{ path('home') }}" class="btn btn-primary mt-3">
+            Retour à l'accueil
+        </a>
+    </div>
+{% endblock %}

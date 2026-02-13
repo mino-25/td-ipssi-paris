@@ -1,37 +1,36 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} | Liste des categories{% endblock %}
+{% block title %} {{ parent() }} | Liste des catégories{% endblock %}
 
 {% block body %}
-
-
 <div class="example-wrapper">
-    <h1>Liste des catégories</h1>
-
-    <table class="table">
+    <h1 class="mb-4">List of categories</h1>
+    <table class="table table-hover">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Content</th>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
             </tr>
         </thead>
+        <tbody>
         {% for category in categories %}
-            <tbody>
-                <tr>
+            <tr>
                 <th scope="row">{{ category.id }}</th>
                 <td>{{ category.name }}</td>
                 <td>{{ category.content }}</td>
-                </tr>
-            </tbody>
+            </tr>
         {% else %}
-            <p> Aucune categorie disponible </p>
+            <tr>
+                <td colspan="3" class="text-center text-danger">No category available</td>
+            </tr>
         {% endfor %}
+        </tbody>
     </table>
-
-
-
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_category_new') }}" class="btn btn-success mt-3 px-4 py-2">Create a new category</a>
+    {% endif %}
 </div>
 {% endblock %}
 {% block footer %}
